@@ -111,6 +111,6 @@
       when: >
         (
           _pyenv_globals_file.stat.exists
-          and (_pyenv_globals_file_content.content | b64decode | split('\n') | select() | list) != pyenv_global
+          and (_pyenv_globals_file_content.content | b64decode | regex_replace('\\r?\\n', '') | list) != pyenv_global
         )
         or not _pyenv_globals_file.stat.exists
